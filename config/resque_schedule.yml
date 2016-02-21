@@ -1,0 +1,6 @@
+do_my_job:
+  queue: default
+  every: 30m
+  class: SendMailJob
+  args: 
+  description: wwwwww

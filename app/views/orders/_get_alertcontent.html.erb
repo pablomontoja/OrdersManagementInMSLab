@@ -1,0 +1,21 @@
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Czy zmienić status dla próbki <b><%= @order.sample_name %></b>?</h4>
+      </div>
+      <div class="modal-body">
+        <table class="table table-striped">
+          <thead>
+            <th>Client name</th>
+            <th>Measurements</th>
+          </thead>
+          <tbody>
+            <tr>
+              <td><%= @order.client.full_name %></td>
+              <td rowspan="2"><h4><p class="bg-danger"><b>
+              <% ilosc = @order.measurements.count %><% i = 0 %><% @order.measurements.each do |t| %><% i = i + 1 %><%= t.technique.short_name %> <%= "," unless i == ilosc  %> <% end %></b></p></h4>
+              </td>
+            </tr>
+            <tr><td><%= link_to 'Edit Order', edit_order_path(@order), class: "btn btn-warning" %></td></tr>
+          </tbody>
+        </table>
+      </div>

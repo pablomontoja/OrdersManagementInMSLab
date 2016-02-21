@@ -1,0 +1,120 @@
+<%= form_for(@client) do |f| %>
+  <% if @client.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@client.errors.count, "error") %> prohibited this client from being saved:</h2>
+
+      <ul>
+      <% @client.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<table class="table table-striped">
+<tr>
+  <td>
+
+  <div class="panel panel-default">
+  <div class="panel-heading">CLIENT</div>
+  <div class="panel-body">
+
+  <div class="field">
+    <%= f.label :first_name %>*<br>
+    <%= f.text_field :first_name, autocomplete: 'off' %>
+  </div>
+  <div class="field">
+    <%= f.label :last_name %>*<br>
+    <%= f.text_field :last_name, autocomplete: 'off' %>
+  </div>
+
+  <div class="field">
+    <%= f.label "Institution" %>*<br>
+    <%= f.select :institution_id, options_from_collection_for_select(@institutions, :id, :name, @client.institution_id ), {prompt: '---  Wybierz instytucję  ---'},  id: "client_institution_id_ps" %>
+  </div>
+
+  <div class="field">
+    <%= f.label "Team" %>*<br>
+    <%= f.select :team_id, options_from_collection_for_select(@teams, :id, :name, @client.team_id ), {prompt: '---  Wybierz zespół/wydział danej instytucji  ---'}, id: "client_team_id_ps" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :email %><br>
+    <%= f.text_field :email, autocomplete: 'off' %>
+  </div>
+
+  <div class="field">
+    <%= f.label :phone %><br>
+    <%= f.text_field :phone, autocomplete: 'off' %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit class: 'btn btn-success'%>
+  </div>
+
+  </div>
+  </div>
+
+  </td>
+
+  <td style="width:40%">
+  <% if current_page?(controller: 'clients', action: 'new') %>
+  <% else %>
+  <div class="panel panel-default">
+  <div class="panel-heading">GRANTS</div>
+  <div class="panel-body">
+  <table class="table table-striped">
+    <% if @client.team.grants.empty? %>
+      <p>Nie przypisano jeszcze żadnego grantu dla tego zespołu</p><br>
+      Aby dodać grant: 
+      <%= link_to 'Idź do edycji zespołu', edit_team_path(@client.team), class: "btn btn-default" %>
+    <% else %>
+      <% @client.team.grants.where(active: true).each do |grant| %>
+      <tr>
+      <td><%= check_box_tag "client[grant_ids][]", grant.id, f.object.grants.include?(grant), style: "height: auto !important; width:30px" %></td>
+      <td><%= grant.name %>  - <font color="green"><b><%= grant.active ? "Aktywny" : "Nieaktywny"  %></b></font> - <%= link_to 'Edit', edit_grant_path(grant), class: "btn btn-default btn-xs" %></td>
+      </tr>
+      <% end %>
+    <% end %>
+
+  </table>
+ nie zapomnij kliknąć Update Client po dokonaniu zmian 
+  </div>
+  </div>
+  <% end %>
+
+
+
+  <% if current_page?(controller: 'clients', action: 'new') %>
+  <% else %>
+  <div class="panel panel-default">
+  <div class="panel-heading">INACTIVE GRANTS</div>
+  <div class="panel-body">
+  <table class="table table-striped">
+    <% if @client.team.grants.where(active: false).empty? %>
+      <p>Nie ma nieaktywnych grantów dla tego klienta</p><br>
+    <% else %>
+      <% @client.team.grants.where(active: false).each do |grant| %>
+      <tr>
+      <td><%= check_box_tag "client[grant_ids][]", grant.id, f.object.grants.include?(grant), style: "height: auto !important; width:30px" %></td>
+      <td><%= grant.name %>  - <font color="green"><b><%= grant.active ? "Aktywny" : "Nieaktywny"  %></b></font> - <%= link_to 'Edit', edit_grant_path(grant), class: "btn btn-default btn-xs" %></td>
+      </tr>
+      <% end %>
+    <% end %>
+
+  </table>
+  </div>
+  </div>
+  <% end %>
+
+
+
+
+
+
+  </td>
+  </tr>
+</table>
+
+
+<% end %>

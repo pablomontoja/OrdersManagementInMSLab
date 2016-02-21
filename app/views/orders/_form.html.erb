@@ -1,0 +1,105 @@
+<%= nested_form_for(@order) do |f| %>
+
+<table class="table table-striped">
+  <tr>
+
+  <td>
+  <div class="panel panel-default">
+  <div class="bg-success panel-body">
+  <div class="field">
+    <%= f.label :number %><br>
+    <% if current_page?(controller: 'orders', action: 'new') %>
+    <%= f.text_field :number, :value => my_counter, :readonly=>true %>
+    <% else %>
+    <%= f.text_field :number, :disabled=>true %>
+    <% end %>
+  </div>
+  <div class="field">
+    <%= f.label :sample_name %>*<br>
+    <%= f.text_field :sample_name, autocomplete: 'off', :class => "required" %>
+  </div>
+
+  <div class="field">
+    <label for="client_name">Client name*</label><br>
+    <% if current_page?(controller: 'orders', action: 'new') %>
+    <%= text_field_tag 'client_name', "", :class => "required" %>
+    <% else %>
+    <%= text_field_tag 'client_name', @order.client.last_name + " " + @order.client.first_name, :class => "required" %>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= f.hidden_field :client_id, :id => "clientID" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :order_date %>*<br>
+    <% if current_page?(controller: 'orders', action: 'new') %>
+    <%= f.text_field :order_date, :value => Time.now.strftime("%Y-%m-%d") %>
+    <% else %>
+    <%= f.text_field :order_date, autocomplete: 'off' %>
+    <% end %>
+  </div>
+  <div class="field">
+    <%= f.label :status %>*<br>
+     <%= f.select :status, options_for_select([ "W TRAKCIE POMIARU", "ZMIANA METODY", "GOTOWY DO ODBIORU", "ZAKOŃCZONE" ], f.object.status )  %>
+  </div>
+
+  <div class="field">
+    <%= f.label :order_type %>*<br>
+    <%= f.select :order_type, options_for_select([ "PŁATNE", "WSPÓŁPRACA NAUKOWA" ], f.object.order_type ) %>
+  </div>
+
+  <div class="field">
+    <%= f.label "Grant" %>*<br>
+    <% # byebug %>
+    <%= f.select :grant_id, options_from_collection_for_select(@grants, :id, :short_name, @order.grant_id ), {prompt: '---  Wybierz grant  ---'},  id: "order_grant_id", :class => "required" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :comment %><br>
+    <%= f.text_field :comment, autocomplete: 'off' %>
+  </div>
+  <div class="actions">
+    <%= f.submit class: 'btn btn-success' %>
+  </div>
+  </div>
+  </div>
+  </td>
+
+
+  <td id="techniki">
+
+  <% i = 1 %>
+  <%= f.fields_for :measurements do |m| %><br>
+    
+<div class="panel panel-default">
+  <div class="bg-info panel-body">
+    <h4>Measurement <%= i %> *</h4>
+    <div class="field">
+      <%= m.label :technique_id %><br>
+      <%= m.select :technique_id, options_from_collection_for_select(@techniques, :id, :short_name, m.object.technique_id ), {prompt: '---  Wybierz technikę  ---'}, :class => "required" %>
+
+    </div>
+
+    <div class="field">
+      <%= m.label :multiplier %>*<br>  
+      <%= m.text_field :multiplier, autocomplete: 'off' %>
+    </div>
+      <%= m.link_to_remove "Remove", role: "button", class: "btn btn-default btn-xs" %>
+<% i = i + 1 %>
+
+
+  </div>
+</div>
+<% end %>
+
+    <p><%= f.link_to_add "Add new measurement", :measurements, role: "button", class: "btn btn-default" %></p>
+
+
+  </td>
+
+  </tr>
+</table>
+
+<% end %>

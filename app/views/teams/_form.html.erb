@@ -1,0 +1,82 @@
+<%= nested_form_for(@team) do |f| %>
+  <% if @team.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@team.errors.count, "error") %> prohibited this team from being saved:</h2>
+
+      <ul>
+      <% @team.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+<table class="table table-striped">
+<tr>
+  <td>
+
+  <div class="panel panel-default">
+  <div class="panel-heading">TEAM</div>
+  <div class="panel-body">
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label "Institution" %><br>
+    <%= f.select :institution_id, options_from_collection_for_select(@institutions, :id, :name, @team.institution_id ) %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit class: 'btn btn-success' %>
+  </div>
+
+  </td>
+
+  <td style="width:30%">
+  <div class="panel panel-default">
+  <div class="panel-heading">GRANTS</div>
+  <div class="panel-body">
+    <%= f.fields_for :grants, @grants do |grant| %>
+      <div class="field">
+        <%= grant.label :name %> 
+        <%= grant.text_field :name, style: "width: 80%" %></br>
+        <%= grant.label :short_name %>
+        <%= grant.text_field :short_name, style: "width: 60%" %></br>
+        <%= grant.check_box :active, style: "height: auto !important; width:30px" %><%= grant.label "Active" %> <%= grant.link_to_remove "Remove", role: "button", class: "btn btn-default btn-xs", data: { confirm: 'Czy napewno chcesz to zrobić? Usunięcie grantu sprawi, że zlecenia wpisane do bazy danych z użyciem tego grantu nie będą przypisane od tego momentu do żadnego grantu!!!' } %>
+        </br>----------------------------
+      </div>
+    <% end %>
+    <p><%= f.link_to_add "Add a grant", :grants, role: "button", class: "btn btn-default btn-xs" %></p>
+  </div>
+  </div>
+    
+  </td>
+
+  <td style="width:30%">
+  <div class="panel panel-default">
+  <div class="panel-heading">INACTIVE GRANTS</div>
+  <div class="panel-body">
+    <%= f.fields_for :grants, @inactive_grants do |grant| %>
+      <div class="field">
+        <%= grant.label :name %> 
+        <%= grant.text_field :name, style: "width: 80%" %></br>
+        <%= grant.label :short_name %>
+        <%= grant.text_field :short_name, style: "width: 60%" %></br>
+        <%= grant.check_box :active, style: "height: auto !important; width:30px" %><%= grant.label "Active" %> <%= grant.link_to_remove "Remove", role: "button", class: "btn btn-default btn-xs" %>
+        </br>----------------------------
+      </div>
+    <% end %>
+
+  </div>
+  </div>
+    
+  </td>
+
+  </tr>
+</table>
+
+<% end %>

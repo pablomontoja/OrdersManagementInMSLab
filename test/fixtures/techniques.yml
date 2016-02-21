@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  short_name: MyString
+  price_icho: 9.99
+  price_ncc: 9.99
+  price_cc: 9.99
+  price_science: 9.99
+
+two:
+  name: MyString
+  short_name: MyString
+  price_icho: 9.99
+  price_ncc: 9.99
+  price_cc: 9.99
+  price_science: 9.99

@@ -1,0 +1,21 @@
+<%= wicked_pdf_stylesheet_link_tag 'application' %>
+
+<table class="table table-condensed">
+  <tr class="success">
+    <td><h4>Raport: <%= @report.name %></h4></td>
+    <td><h5><strong>Data wykonania od: </strong><%= @report.date_from %> <strong>do: </strong><%= @report.date_to %></h5></td>
+  </tr>
+</table>
+
+
+      <% case @report.i_type
+        when "NIEKOMERCYJNA" %>
+          <%= render 'niekomercyjne' %>
+      <% when "ICHO" %>
+          <%= render 'icho' %>
+      <% when "KOMERCYJNA" %>
+          <%= render 'niekomercyjne' %>
+      <% when "ICHO 1 GRANT" %>
+          <%= render 'ichogrant' %>                           
+        <% end %>
+

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Dzień dobry</h1>
+     <p>
+      Widma mas dla podanych niżej próbek są gotowe:
+    </p>
+    <table>
+    	<tr>
+    	<th>Nazwa próbki</th>
+    	<th>Rodzaj pomiaru</th>
+    	</tr>	
+    <% @zlecenia.each do |order| %>
+    	<tr> 
+    	<td><%= order.sample_name %></td>
+    	<td><% ilosc = order.measurements.count %><% i = 0 %><% order.measurements.each do |t| %><% i = i + 1 %><%= t.technique.short_name %> <%= "," unless i == ilosc  %> <% end %></td>
+    	</tr>
+    <% end %>
+    </table>
+    <p>Próbki oraz widma w wersji papierowej można odebrać w pokoju 011. </p>
+    <p>Widma w wersji elektronicznej można znaleźć na serwerze plików naszego laboratorium.</p>
+    <p>-------------------</p>  
+    <p>!!! Proszę nie odpowiadać na tego emaila !!!</p>
+    
+  </body>
+</html>

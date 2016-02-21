@@ -1,0 +1,45 @@
+<table class="table table-condensed table-bordered">
+	<tr>
+    	<td colspan="2">
+      	<h5><b><%= @institution.name %></b></br></h5>
+    	</td>
+    	
+  	</tr>
+  	<tr>
+  		<th>Nazwa zespołu</th>
+  		<th>Wykonane Pomiary</th>
+  	</tr>
+
+										<% @teams.each do |team| %>  	
+
+  	<tr>
+  		<td><h5><b><%= team.name %></h5></b></td>
+
+  		<td>
+<% team.grants.where(id: @grant_ids).each do |grant| %>
+	<% grant_orders = grant.orders.where(status: "ZAKOŃCZONE", order_end_date: @report.date_from..@report.date_to).collect(&:id) %>
+	<% grant_measurements = Measurement.where(order_id: grant_orders) %>
+
+  			<table class="table table-condensed table-bordered">
+  			<caption><%= grant.name %></caption>
+				<tr>
+					<% @techniques.each do |tech| %>
+					<th><%= tech.short_name %></th>
+					<% end %>
+				</tr>
+				<tr>					
+					<% @techniques.each do |t| %>
+          <% wart = grant_measurements.where(technique_id: t.id).count %>
+            <% if wart != 0 %>
+					      <td><%= wart %></td>
+            <% else %>
+                <td>-</td>
+					  <% end %>
+          <% end %>
+				</tr>
+  			</table>
+<% end %>
+  		</td>  							
+  	</tr>
+										<% end %>										  	
+</table>

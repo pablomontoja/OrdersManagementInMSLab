@@ -1,0 +1,43 @@
+<table class="table table-striped" style="width:60%">
+<tr>
+<td>
+
+  <div class="panel panel-default">
+  <div class="panel-heading">TECHNIQUE</div>
+  <div class="panel-body">
+
+<ul class="list-group">
+    <li class="list-group-item">
+  <strong>Name:</strong>
+  <%= @technique.name %>
+    </li>
+    <li class="list-group-item">
+  <strong>Short name:</strong>
+  <%= @technique.short_name %>
+    </li>
+    <li class="list-group-item">
+  <strong>Price icho:</strong>
+  <%= @technique.price_icho %>
+    </li>
+    <li class="list-group-item">
+  <strong>Price ncc:</strong>
+  <%= @technique.price_ncc %>
+    </li>
+    <li class="list-group-item">
+  <strong>Price cc:</strong>
+  <%= @technique.price_cc %>
+    </li>
+    <li class="list-group-item">
+  <strong>Price science:</strong>
+  <%= @technique.price_science %>
+    </li>    
+
+</ul>
+  </div>
+  </div>
+</td>
+</tr>
+</table>
+
+<%= link_to 'Edit', edit_technique_path(@technique), class: "btn btn-default" %> |
+<%= link_to 'Back to Techniques', techniques_path, class: "btn btn-default" %>

@@ -1,0 +1,47 @@
+<%= form_for(@report) do |f| %>
+  <% if @report.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@report.errors.count, "error") %> prohibited this report from being saved:</h2>
+
+      <ul>
+      <% @report.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %>*<br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :date_from %>*<br>
+    <%= f.text_field :date_from %>
+  </div>
+  <div class="field">
+    <%= f.label :date_to %>*<br>
+    <%= f.text_field :date_to %>
+  </div>
+
+  <div class="field">
+    <%= f.label "Type of institution" %>*<br>
+    <%= f.select :i_type, options_for_select([ "NIEKOMERCYJNA", "KOMERCYJNA", "ICHO", "ICHO 1 GRANT" ], f.object.i_type ), {prompt: '---  Wybierz typ instytucji  ---'},  id: "i_type" %>    
+  </div>
+
+  <div class="field">
+    <%= f.label :institution %>*<br>
+    <%= f.select :institution, options_from_collection_for_select(@institutions, :id, :name, f.object.institution), {prompt: '---  Wszystkie instytucję  ---'},  id: "client_institution_id_ps" %>    
+  </div>
+  <div class="field">
+    <%= f.label :team %>*<br>
+    <%= f.select :team, options_from_collection_for_select(@teams, :id, :name, f.object.team), {prompt: '---  Wybierz zespół/wydział danej instytucji  ---'}, id: "client_team_id_ps" %>
+  </div>
+  <div class="field">
+    <%= f.label :grant %>*<br>
+    <%= f.select :grant, options_from_collection_for_select(@grants, :id, :name, f.object.grant), {prompt: '---  Wybierz grant  ---'}, id: "grant_id" %>
+  </div>
+  <div class="actions">
+    <%= f.submit class: 'btn btn-success' %>
+  </div>
+<% end %>

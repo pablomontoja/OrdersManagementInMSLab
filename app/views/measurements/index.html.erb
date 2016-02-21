@@ -1,0 +1,39 @@
+<h1>Listing Measurements</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Technique name</th>
+      <th>Order number</th>
+      <th>Multiplier</th>
+      <th>Price</th>
+      <th>Measured by</th>
+      <th>Measured at</th>
+      <th>Comment</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @measurements.each do |measurement| %>
+      <tr>
+        <td><%= measurement.technique.short_name %></td>
+        <td><%= measurement.order.number %></td>
+        <td><%= measurement.multiplier %></td>
+        <td><%= number_to_currency( measurement.price, unit: "zł", format: "%n %u" )         %></td>
+        <td><%= measurement.measured_by %></td>
+        <td><%= measurement.measured_at %></td>
+        <td><%= measurement.comment %></td>
+        <td><%= link_to 'Show', measurement %></td>
+        <td><%= link_to 'Edit', edit_measurement_path(measurement) %></td>
+      <% if current_user.admin? %>
+        <td><%= link_to 'Destroy', measurement, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= will_paginate @measurements, renderer: BootstrapPagination::Rails %>
+<br>
+
+

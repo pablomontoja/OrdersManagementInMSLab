@@ -1,0 +1,68 @@
+<table class="table table-striped">
+
+<tr>
+<td style="width:60%">
+
+  <div class="panel panel-default">
+  <div class="panel-heading">INSTITUTION</div>
+  <div class="panel-body">
+
+<ul class="list-group">
+	<li class="list-group-item">
+  <strong>First name:</strong>
+  <%= @client.first_name %>
+  	</li>
+	<li class="list-group-item">
+  <strong>Last name:</strong>
+  <%= @client.last_name %>
+  	</li>
+	<li class="list-group-item">
+  <strong>Institution:</strong>
+  <%= @client.institution.name %>
+  	</li>
+  	<li class="list-group-item">
+  <strong>Team:</strong>
+  <%= @client.team.name %>
+  	</li>
+    <li class="list-group-item">
+  <strong>Email:</strong>
+  <%= @client.email %>
+    </li>
+    <li class="list-group-item">
+  <strong>Phone number:</strong>
+  <%= @client.phone %>
+    </li>
+
+
+</ul>
+  </div>
+  </div>
+</td>
+
+<td style="width:40%">
+
+  <div class="panel panel-default">
+  <div class="panel-heading">GRANTS</div>
+  <div class="panel-body">
+  	<ul class="list-group">
+
+      <% @client.grants.each do |grant| %>
+      <li class="list-group-item"> 
+        <%= grant.name %></br>
+      </li>
+      <% end %>
+
+    </ul>
+  </div>
+  </div>
+
+</td>
+</tr>
+
+</table>
+
+
+
+<%= link_to 'Edit', edit_client_path(@client), class: "btn btn-default" %> |
+<%= link_to 'Go to Clients', clients_path, class: "btn btn-default" %> |
+<%= link_to 'Client Orders', client_orders_path(@client), class: "btn btn-default" %>

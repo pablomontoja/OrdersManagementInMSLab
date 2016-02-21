@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  date_from: 2015-11-17
+  date_to: 2015-11-17
+  institution: MyString
+  team: MyString
+  client: MyString
+  grant: MyString
+
+two:
+  name: MyString
+  date_from: 2015-11-17
+  date_to: 2015-11-17
+  institution: MyString
+  team: MyString
+  client: MyString
+  grant: MyString

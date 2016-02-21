@@ -1,0 +1,110 @@
+<table class="table table-striped">
+
+<tr>
+<td style="width:50%">
+
+<ul class="list-group">
+  
+  <li class="list-group-item list-group-item-success">
+      <h4>ORDER</h4>
+  </li>
+
+  <li class="list-group-item">
+  <h4>
+  <p class="bg-info">
+  <strong>Number:</strong>
+  <%= @order.number %>
+  </p>
+  </h4>  
+  </li>
+
+  <li class="list-group-item">
+  <strong>Sample name:</strong>
+  <%= @order.sample_name %>
+  </li>
+
+  <li class="list-group-item">
+  <strong>Order date:</strong>
+  <%= @order.order_date %>
+  </li>
+
+  <li class="list-group-item">
+  <strong>Order end date:</strong>
+  <%= @order.order_end_date %>
+  </li>
+
+  <li class="list-group-item">
+  <strong>Status:</strong>
+  <%= @order.status %>
+  </li>
+
+  <li class="list-group-item">
+  <strong>Final price:</strong>
+  <%= @order.final_price %>
+  </li>
+
+  <li class="list-group-item">
+  <strong>Created by:</strong>
+  <%= @order.created_by %>
+  </li>
+
+  <li class="list-group-item">
+  <strong>Edited by:</strong>
+  <%= @order.edited_by %>
+  </li>
+
+  <li class="list-group-item">
+  <strong>Order type:</strong>
+  <%= @order.order_type %>
+  </li>
+
+  <li class="list-group-item">
+  <strong>Grant:</strong>
+  <%= @order.grant.short_name %>
+  </li>
+
+  <li class="list-group-item">
+  <strong>Comment:</strong>
+  <%= @order.comment %>
+  </li>
+</ul>
+
+
+</td>
+
+<td>
+<ul class="list-group">
+  <li class="list-group-item list-group-item-success">
+      <h4>CLIENT</h4>
+  </li>
+
+  <li class="list-group-item">
+
+      <strong>Name:</strong>
+      <%= @order.client.first_name + " " + @order.client.last_name %>
+  </li>
+  <li class="list-group-item">
+
+      <strong>Institution:</strong>
+      <%= @order.client.institution.name %>
+  </li>  
+</ul>
+
+</br>
+
+<ul class="list-group">
+    <li class="list-group-item list-group-item-success">
+        <h4>MEASUREMENTS</h4>
+      </li>
+    <% @order.measurements.each do |m| %>
+    <li class="list-group-item">
+      Technika: <%= m.technique.short_name %><br>
+      Mnożnik: <%= m.multiplier %>
+    </li>
+      <% end %>
+    </ul>
+</td>
+</tr>
+</table>
+<%= link_to 'Edit', edit_order_path(@order), class: "btn btn-default" %> |
+<%= link_to 'Back to Orders', orders_path, class: "btn btn-default" %>

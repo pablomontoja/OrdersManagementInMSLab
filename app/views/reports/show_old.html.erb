@@ -1,0 +1,341 @@
+<p id="notice"><%= notice %></p>
+
+<table class="table table-condensed">
+  <tr class="active">
+  <td colspan="3">
+    <h4>Report: <%= @report.name %></h4>
+  </td>  
+  </tr>
+
+  <tr>
+  <td colspan="3">
+    <strong>Date from: </strong><%= @report.date_from %> 
+    <strong>to: </strong>
+    <%= @report.date_to %>
+  </td>
+  </tr>
+
+
+
+  <tr class="success">
+    <td colspan="3">
+      <h5><%= @institution.name %></br></h5>
+    </td>
+  </tr>
+
+  <% if @report.team.blank? %>
+
+    <% @institution.teams.each do |team| %>
+  <tr class="info">
+    <td colspan="3">    
+      <%= team.name %>
+    </td>
+  </tr>
+      <% team.clients.each do |client| %>
+
+  <tr>
+        <% client_orders = client.orders.where(status: "ZAKOŃCZONE", order_end_date: @report.date_from..@report.date_to) %>
+
+    <% if client_orders.any? %>
+    <td>
+      <%= client.full_name %>
+    </td>      
+    <td>
+    <% client.grants.where(id: client_orders.collect(&:grant_id)).each do |grant| %>      
+
+
+
+
+      <table class="table table-bordered">
+      <caption><%= grant.short_name %></caption>
+
+      <tr>
+        <th>Info</th>
+
+      </tr>
+              <% col = 0  %> 
+              <% mcol = client.orders.map{|n| n.measurements.count}.max  %>    
+    <% client_orders.where(grant_id: grant.id).each do |order| %>
+      <tr>
+              <% col = order.measurements.count if col < order.measurements.count  %>               
+        <td>
+          Numer zlecenia: <%= order.number %> | Nazwa próbki: <%= order.sample_name %>
+        </td>
+
+       
+          <% order.measurements.each do |meas| %>
+            <td>
+              <%= meas.technique.short_name %>: <%= meas.multiplier %>
+            </td>
+          <% end %>
+
+          <% if col < mcol  %>
+          <% (mcol-col).times do %>
+          <td></td>
+          <% end %>
+          <% end %>
+        
+        <td>
+          Koszt: <%= order.final_price %> zł
+        </td>
+
+      </tr>
+      <% end %>
+
+      <tr>
+        <td colspan="<%= col + 1 %>"><b>Koszt sumaryczny:</b></td>
+        <td><%= client_orders.where(grant_id: grant.id).sum(:final_price) %> zł</td>
+      </tr>
+
+
+      </table>
+
+      <% end %>
+    </td>
+
+  <% end %>   
+  </tr>
+
+
+
+      <% end %>
+    <% end %>
+  <% else %>
+
+  
+
+  <tr class="info">
+    <td colspan="3">
+      <% zesp = Team.find(@report.team) %>  
+      <%= zesp.name %>
+    </td>
+  </tr>
+
+            <% if @report.client.blank? %>
+
+                      <% zesp.clients.each do |client| %>
+<% client_orders = client.orders.where(status: "ZAKOŃCZONE", order_end_date: @report.date_from..@report.date_to) %>
+
+  <tr>
+    <% if client_orders.any? %>
+    <td>
+      <%= client.full_name %>
+    </td>      
+    <td>
+    <% client.grants.where(id: client_orders.collect(&:grant_id)).each do |grant| %>      
+
+      <table class="table table-bordered">
+      <caption><%= grant.short_name %></caption>
+
+      
+
+
+
+
+
+
+
+      <tr>
+        <th>Info</th>
+
+      </tr>
+              <% col = 0  %> 
+              <% mcol = client_orders.map{|n| n.measurements.count}.max  %>       
+    <% client_orders.where(grant_id: grant.id).each do |order| %>
+      <tr>
+        
+        <td>
+          Numer zlecenia: <%= order.number %> | Nazwa próbki: <%= order.sample_name %>
+        </td>
+
+              <% col = order.measurements.count if col < order.measurements.count  %>        
+          <% order.measurements.each do |meas| %>
+            <td>
+              <%= meas.technique.short_name %>: <%= meas.multiplier %>
+            </td>
+          <% end %> 
+        
+          <% if col < mcol  %>
+          <% (mcol-col).times do %>
+          <td></td>
+          <% end %>
+          <% end %>
+
+        <td>
+          Koszt: <%= order.final_price %> zł
+        </td>
+
+      </tr>
+
+
+      <% end %>
+
+      <tr>
+        <td colspan="<%= col + 1 %>"><b>Koszt sumaryczny:</b></td>
+        <td><%= client_orders.where(grant_id: grant.id).sum(:final_price) %> zł</td>
+      </tr>
+
+      </table>
+
+      <% end %>
+    </td>
+
+  <% end %>   
+  </tr>
+                      <% end %>
+
+              <% else %>
+
+
+
+
+
+
+
+
+      <% client = Client.find(@report.client) %>
+<% client_orders = client.orders.where(status: "ZAKOŃCZONE", order_end_date: @report.date_from..@report.date_to) %>
+  <tr>
+    <% if client_orders.any? %>
+    <td>
+      <%= client.full_name %>
+    </td>
+
+
+
+
+                        <% if @report.grant.blank? %>
+    <td>
+    <% client.grants.where(id: client_orders.collect(&:grant_id)).each do |grant| %>      
+
+      <table class="table table-bordered">
+      <caption><%= grant.short_name %></caption>
+
+
+      <tr>
+        <th>Info</th>
+
+      </tr>
+              <% col = 0  %>
+              <% mcol = client_orders.map{|n| n.measurements.count}.max  %>      
+    <% client_orders.where(grant_id: grant.id).each do |order| %>
+      <tr>
+        
+        <td>
+          Numer zlecenia: <%= order.number %> | Nazwa próbki: <%= order.sample_name %>
+        </td>
+
+              <% col = order.measurements.count if col < order.measurements.count  %>        
+          <% order.measurements.each do |meas| %>
+            <td>
+              <%= meas.technique.short_name %>: <%= meas.multiplier %>
+            </td>
+          <% end %> 
+        
+          <% if col < mcol  %>
+          <% (mcol-col).times do %>
+          <td></td>
+          <% end %>
+          <% end %>
+
+        <td>
+          Koszt: <%= order.final_price %> zł
+        </td>
+
+      </tr>
+      <% end %>
+
+      <tr>
+        <td colspan="<%= col + 1 %>"><b>Koszt sumaryczny:</b></td>
+        <td><%= client_orders.where(grant_id: grant.id).sum(:final_price) %> zł</td>
+      </tr>
+
+
+     
+      </table>
+
+      <% end %>
+    </td>
+
+
+
+
+
+                        <% else %>
+
+    <td>
+    <% grant = Grant.find(@report.grant) %>      
+
+      <table class="table table-bordered">
+      <caption><%= grant.short_name %></caption>
+
+      <tr>
+        <th>Info</th>
+<% col = 0  %>
+<% mcol = client.orders.map{|n| n.measurements.count}.max  %>  
+      </tr>
+    <% client.orders.where(grant_id: grant.id, status: "ZAKOŃCZONE", order_end_date: @report.date_from..@report.date_to).each do |order| %>
+      <tr>
+        
+        <td>
+          Order number: <%= order.number %> | Sample name: <%= order.sample_name %>
+        </td>
+
+        <% col = order.measurements.count if col < order.measurements.count  %> 
+          <% order.measurements.each do |meas| %>
+            <td>
+              <%= meas.technique.short_name %>: <%= meas.multiplier %>
+            </td>
+          <% end %> 
+        
+          <% if col < mcol  %>
+          <% (mcol-col).times do %>
+          <td></td>
+          <% end %>
+          <% end %>
+        
+        <td>
+          Koszt: <%= order.final_price %> zł
+        </td>
+
+
+      </tr>
+      <% end %>
+
+      <tr>
+        <td colspan="<%= col + 1 %>"><b>Koszt sumaryczny:</b></td>
+        <td><%= client.orders.where(grant_id: grant.id).sum(:final_price) %> zł</td>
+      </tr>
+
+
+      </table>
+
+
+    </td>
+
+                        <% end %>
+
+
+
+
+  <% end %>   
+  </tr>
+
+
+
+
+
+
+
+
+              <% end %>
+
+  
+
+  <% end %>
+
+</table>
+
+
+<%= link_to 'Edit', edit_report_path(@report), class: "btn btn-default"%> |
+<%= link_to 'Back', reports_path, class: "btn btn-default" %>

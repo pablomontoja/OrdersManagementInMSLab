@@ -1,0 +1,17 @@
+<p>
+  <strong>Name:</strong>
+  <%= @grant.name %>
+</p>
+
+<p>
+  <strong>Short name:</strong>
+  <%= @grant.short_name %>
+</p>
+
+<p>
+  <strong>Active?</strong>
+  <%= @grant.active ? "Yes" : "No" %>
+</p>
+
+<%= link_to 'Edit', edit_grant_path(@grant), class: "btn btn-default" %> |
+<%= link_to 'Back to Grants', grants_path, class: "btn btn-default" %>

@@ -1,0 +1,58 @@
+<table class="table table-striped">
+
+<tr>
+<td style="width:60%">
+
+  <div class="panel panel-default">
+  <div class="panel-heading">INSTITUTION</div>
+  <div class="panel-body">
+
+<ul class="list-group">
+	<li class="list-group-item">
+	  <strong>Name:</strong>
+	  <%= @institution.name %>
+  	</li>
+	<li class="list-group-item">
+	  <strong>Short name:</strong>
+	  <%= @institution.short_name %>
+  	</li>
+  <li class="list-group-item">
+    <strong>Type:</strong>
+    <%= @institution.i_type %>
+    </li>
+	<li class="list-group-item">
+	  <strong>Address line1:</strong>
+	  <%= @institution.address_line1 %>
+  	</li>
+  	<li class="list-group-item">
+	  <strong>Address line2:</strong>
+	  <%= @institution.address_line2 %>
+  	</li>
+
+</ul>
+  </div>
+  </div>
+
+</td>
+<td style="width:40%">
+
+  <div class="panel panel-default">
+  <div class="panel-heading">TEAMS</div>
+  <div class="panel-body">
+  	<ul class="list-group">
+    <% @institution.teams.each do |team| %>
+    	<li class="list-group-item">      
+        <%= team.name %> <%= link_to 'Show', team, class: "btn btn-default btn-xs" %> <%= link_to 'Edit', edit_team_path(team), class: "btn btn-default btn-xs" %>        
+    	</li>
+    <% end %>
+    </ul>
+  </div>
+  </div>
+
+</td>
+</tr>
+
+</table>
+
+<%= link_to 'Edit', edit_institution_path(@institution), class: "btn btn-default" %> |
+<%= link_to 'Back to Institutions', institutions_path, class: "btn btn-default" %>

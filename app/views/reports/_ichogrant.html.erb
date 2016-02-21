@@ -1,0 +1,64 @@
+<table class="table table-condensed table-bordered">
+	<tr>
+    	<td colspan="2">
+      	<h5><b><%= @institution.name %></b></br></h5>
+      	<h5>grant: <i><%= Grant.find(@report.grant).name %></i></br></h5>
+    	</td>
+    	
+  	</tr>
+  	<tr>
+  		<th>Imię i nazwisko</th>
+  		<th>Wykonane Pomiary</th>
+  	</tr>
+
+										<% @clients.each do |client| %>  	
+
+  	<tr>
+  		<td><h5><b><%= client.full_name %></h5></b></td>
+
+  		<td>
+
+
+  			<table class="table table-condensed table-bordered">
+				<tr>
+					<th id="raport">Próbka</th>
+					<% @techniques.each do |tech| %>
+					<th id="raport"><%= tech.short_name %></th>
+					<% end %>
+					<th id="raport">Wartość</th>
+				</tr>
+
+<% client.orders.where(id: @order_ids).each do |order| %>
+
+	<% order_measurements = order.measurements %>
+
+
+				<tr>
+				<td><%= order.sample_name %></td>					
+		<% @techniques.each do |t| %>
+          				<% wart = order_measurements.where(technique_id: t.id).count %>
+            		<% if wart != 0 %>
+					    <td><%= wart %></td>
+            		<% else %>
+                		<td>-</td>
+					<% end %>	
+					
+        <% end %>
+        		<td><%= number_to_currency( order.final_price, unit: "zł", format: "%n %u" )  %></td>
+				</tr>
+
+<% end %>
+
+
+  			</table>
+
+  		</td>  							
+  	</tr>
+										<% end %>
+	
+
+	<tr>
+		<td><b>Podsumowanie:</b></td>
+		<td>Sumaryczna wartość wykonanych pomiarów: <b><%= number_to_currency( @orders.sum(:final_price), unit: "zł", format: "%n %u" )  %></b></td>
+	</tr>										  	
+</table>

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  multiplier: 9.99
+  price: 9.99
+  measurement_by: MyString
+  measurement_at: 2015-11-01
+  comment: MyString
+
+two:
+  multiplier: 9.99
+  price: 9.99
+  measurement_by: MyString
+  measurement_at: 2015-11-01
+  comment: MyString

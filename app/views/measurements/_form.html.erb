@@ -1,0 +1,51 @@
+<%= form_for(@measurement) do |f| %>
+  <% if @measurement.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@measurement.errors.count, "error") %> prohibited this measurement from being saved:</h2>
+
+      <ul>
+      <% @measurement.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <label for="technique_name">Technique name</label><br>
+    <% if current_page?(controller: 'measurements', action: 'new') %>
+    <%= text_field_tag 'technique_name_in_measurement' %>
+    <% else %>
+    <%= text_field_tag 'technique_name_in_measurement', @measurement.technique.short_name %>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= f.hidden_field :technique_id, :id => "techniqueID" %>
+  </div>
+
+
+  <div class="field">
+    <%= f.label :multiplier %><br>
+    <%= f.text_field :multiplier %>
+  </div>
+  <div class="field">
+    <%= f.label :price %><br>
+    <%= f.text_field :price %>
+  </div>
+  <div class="field">
+    <%= f.label :measured_by %><br>
+    <%= f.text_field :measured_by %>
+  </div>
+  <div class="field">
+    <%= f.label :measured_at %><br>
+    <%= f.text_field :measured_at %>
+  </div>
+  <div class="field">
+    <%= f.label :comment %><br>
+    <%= f.text_field :comment %>
+  </div>
+  <div class="actions">
+    <%= f.submit class: 'btn btn-success'%>
+  </div>
+<% end %>

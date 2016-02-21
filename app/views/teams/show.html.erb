@@ -1,0 +1,43 @@
+<table class="table table-striped">
+
+<tr>
+<td style="width:60%">
+
+  <div class="panel panel-default">
+  <div class="panel-heading">TEAM</div>
+  <div class="panel-body">
+
+<ul class="list-group">
+	<li class="list-group-item">
+  <strong>Name:</strong>
+  <%= @team.name %>
+  	</li>
+</ul>
+  </div>
+  </div>
+</td>
+
+<td style="width:40%">
+
+  <div class="panel panel-default">
+  <div class="panel-heading">GRANTS</div>
+  <div class="panel-body">
+  	<ul class="list-group">
+
+      <% @team.grants.order(:short_name).each do |grant| %>
+      <li class="list-group-item"> 
+        <%= grant.name %> (<%= grant.short_name %>)
+      </li>
+      <% end %>
+
+    </ul>
+  </div>
+  </div>
+
+</td>
+</tr>
+
+</table>
+
+<%= link_to 'Edit', edit_team_path(@team), class: "btn btn-default" %> |
+<%= link_to 'Back to Teams', teams_path, class: "btn btn-default" %>

@@ -1,0 +1,46 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Reports</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Date from</th>
+      <th>Date to</th>
+      <th>Type</th>
+      <th>Institution</th>
+      <th>Team</th>
+
+      <th>Grant</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @reports.each do |report| %>
+      <tr>
+        <td><%= report.name %></td>
+        <td><%= report.date_from %></td>
+        <td><%= report.date_to %></td>
+        <td><%= report.i_type %></td>
+        <td><%= Institution.find(report.institution).name unless report.institution.blank? %></td>
+        <td><%= Team.find(report.team).name unless report.team.blank? %></td>
+
+        <td><%= Grant.find(report.grant).name unless report.grant.blank? %></td>
+        <td><%= link_to 'Show', report %></td>
+        <td><%= link_to 'Show pdf', showpdf_report_path(report, :format => :pdf) %></td>
+        <td><%= link_to 'Edit', edit_report_path(report) %></td>
+      <% if current_user.admin? %>
+        <td><%= link_to 'Destroy', report, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= will_paginate @reports, renderer: BootstrapPagination::Rails %>
+<br>
+
+<%= link_to 'New Report', new_report_path, class: "btn btn-default" %>
+
+

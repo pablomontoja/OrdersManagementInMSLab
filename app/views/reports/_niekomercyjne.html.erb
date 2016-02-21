@@ -1,0 +1,48 @@
+<table class="table table-condensed table-bordered">
+<% @niekomercyjni.each do |n| %>
+
+
+									<% n.teams.where(id: @team_ids).each do |team| %> 
+	<tr>
+	   	<td>
+      	<b><font size="3"><%= team.institution.name %></font></b></br>
+      	<font size="3"><%= team.name %></font></br>
+		</td>
+
+  		<td>
+	<% team.grants.where(id: @grant_ids).each do |grant| %>
+	<% grant_orders = grant.orders.where(status: "ZAKOŃCZONE", order_end_date: @report.date_from..@report.date_to) %>
+	<% grant_measurements = Measurement.where(order_id: grant_orders.collect(&:id)) %>
+
+  			<table class="table table-condensed table-bordered">
+  			<caption><font size="3">Zlecenie/Zamówienie/Grant: <u><%= grant.name %></u> </br> Data wykonania: <%= grant_orders.collect(&:order_end_date).max %></font></caption>
+				<tr>
+					<% @techniques.each do |tech| %>
+					<th><%= tech.short_name %></th>
+					<% end %>
+				</tr>
+				<tr>					
+					<% @techniques.each do |t| %>
+
+          				<% wart = grant_measurements.where(technique_id: t.id).count %>
+            			<% if wart != 0 %>
+					      	<td><%= wart %></td>
+           				<% else %>
+                			<td>-</td>
+					    <% end %>
+
+					<% end %>
+				</tr>
+  			</table>
+
+<% end %>
+  		</td>  							
+  	</tr>
+										<% end %>
+
+
+
+
+
+<% end %>
+</table>

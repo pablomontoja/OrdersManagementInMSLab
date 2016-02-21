@@ -1,0 +1,75 @@
+<%= nested_form_for(@institution) do |f| %>
+  <% if @institution.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@institution.errors.count, "error") %> prohibited this institution from being saved:</h2>
+
+      <ul>
+      <% @institution.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<table class="table table-striped">
+<tr>
+  <td>
+
+  <div class="panel panel-default">
+  <div class="panel-heading">INSTITUTION</div>
+  <div class="panel-body">
+
+  <div class="field">
+    <%= f.label :name %>*<br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :short_name %>*<br>
+    <%= f.text_field :short_name %>
+  </div>
+  <div class="field">
+    <%= f.label "Type" %>*<br>
+    <%= f.select :i_type, options_for_select([ "NIEKOMERCYJNA", "KOMERCYJNA", "ICHO" ], f.object.i_type ) %>
+  </div>
+  <div class="field">
+    <%= f.label :address_line1 %><br>
+    <%= f.text_field :address_line1 %>
+  </div>
+  <div class="field">
+    <%= f.label :address_line2 %><br>
+    <%= f.text_field :address_line2 %>
+  </div>
+  <div class="actions">
+    <%= f.submit class: 'btn btn-success'%>
+  </div>
+
+  </div>
+  </div>
+
+  </td>
+
+  <td style="width:40%">
+  <div class="panel panel-default">
+  <div class="panel-heading">TEAMS</div>
+  <div class="panel-body">
+    <%= f.fields_for :teams, @teams do |team| %>
+      <div class="field">
+        <%= team.label :name %>:
+        <%= team.text_field :name, style: "width: 75%" %>
+        <%= team.link_to_remove "Remove", role: "button", class: "btn btn-default btn-xs" %>
+      </div>
+    <% end %>
+    <p><%= f.link_to_add "Add a team", :teams, role: "button", class: "btn btn-default" %></p>
+  </div>
+  </div>
+    
+  </td>
+
+
+
+</tr>
+</table>
+
+
+
+<% end %>

@@ -1,0 +1,27 @@
+<p>
+  <strong>Multiplier:</strong>
+  <%= @measurement.multiplier %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @measurement.price %>
+</p>
+
+<p>
+  <strong>Measured by:</strong>
+  <%= @measurement.measured_by %>
+</p>
+
+<p>
+  <strong>Measured at:</strong>
+  <%= @measurement.measured_at %>
+</p>
+
+<p>
+  <strong>Comment:</strong>
+  <%= @measurement.comment %>
+</p>
+
+<%= link_to 'Edit', edit_measurement_path(@measurement), class: "btn btn-default" %> |
+<%= link_to 'Back to Measurements', measurements_path, class: "btn btn-default" %>

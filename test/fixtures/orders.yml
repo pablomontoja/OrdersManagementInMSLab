@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  number: MyString
+  order_date: 2015-10-20 19:37:59
+  order_end_date: 2015-10-20 19:37:59
+  status: MyString
+  final_price: 9.99
+  created_by: MyString
+  edited_by: MyString
+  order_type: MyString
+  comment: MyString
+
+two:
+  number: MyString
+  order_date: 2015-10-20 19:37:59
+  order_end_date: 2015-10-20 19:37:59
+  status: MyString
+  final_price: 9.99
+  created_by: MyString
+  edited_by: MyString
+  order_type: MyString
+  comment: MyString
