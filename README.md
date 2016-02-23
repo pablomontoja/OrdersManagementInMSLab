@@ -1,7 +1,7 @@
 ----
 # Orders Management In Mass Spectrometry Laboratory
 
-This is s web-based application written in Ruby on Rails. It can be used to store information, for example, about orders (analysis) in mass spectrometry laboratory.
+This is a web-based application written in Ruby on Rails. It can be used to store information, for example, about orders (analyses) in mass spectrometry laboratory.
 
 ## REQUIREMENTS
 
