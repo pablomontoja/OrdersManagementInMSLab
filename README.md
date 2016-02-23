@@ -31,7 +31,7 @@ rake db:migrate
 rails server
 ```
 
- #### the easiest method - use VirtualBox image
+#### The easiest method - use VirtualBox image
 
 I prepared Ubuntu Server image (.vdi container) that can be used to run my app. You need to configure VirtualBox Port Forwarding (add port forwarding rule with Host Port=3000 and Guest Port=3000).
 
@@ -51,8 +51,9 @@ After login as admin go to /home/admin/rails and clone the repo:
 git clone https://github.com/pablomontoja/OrdersManagementInMSLab.git
 
 rails server -b 10.0.2.15
+```
 
 Now in your host system in browser go to:
-
+```
 127.0.0.1:3000
 ```
