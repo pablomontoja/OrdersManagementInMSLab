@@ -16,7 +16,7 @@ sudo apt-get install redis-server
 
 sudo apt-get install nodejs
 
-// git clone https://github.com/pablomontoja/OrdersManagementInMSLab.git
+/// git clone https://github.com/pablomontoja/OrdersManagementInMSLab.git
 
 cd OrdersManagementInMSLab
 
