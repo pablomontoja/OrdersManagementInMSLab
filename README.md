@@ -50,6 +50,10 @@ After login as admin go to /home/admin/rails and clone the repo:
 ```
 git clone https://github.com/pablomontoja/OrdersManagementInMSLab.git
 
+bundle install
+
+rake db:migrate
+
 rails server -b 10.0.2.15
 ```
 
