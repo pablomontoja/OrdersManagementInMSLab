@@ -10,15 +10,15 @@ $("#client_institution_id_ps").change(function(){
          $("#grant_id option").remove();
 
   			$.getJSON(url, function(data){
-        $("#client_team_id_ps").append($("<option></option>").attr("value", "").text('---Wybierz zespół---'));
-        $("#grant_id").append($("<option></option>").attr("value", "").text('---Wybierz grant---'));        
+        $("#client_team_id_ps").append($("<option></option>").attr("value", "").text('---Select Team---'));
+        $("#grant_id").append($("<option></option>").attr("value", "").text('---Select Grant---'));        
   	 		$.each(data, function(value,key){
         	$("#client_team_id_ps").append($("<option></option>").attr("value", value).text(key));
       		});
   		});
 
         $.getJSON(url2, function(data){
-          $("#client_id").append($("<option></option>").attr("value", "").text('---Wybierz klienta---'));
+          $("#client_id").append($("<option></option>").attr("value", "").text('---Select client---'));
         $.each(data, function(value,key){
           $("#client_id").append($("<option></option>").attr("value", value).text(key));
           });

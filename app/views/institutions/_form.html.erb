@@ -29,7 +29,7 @@
   </div>
   <div class="field">
     <%= f.label "Type" %>*<br>
-    <%= f.select :i_type, options_for_select([ "NIEKOMERCYJNA", "KOMERCYJNA", "ICHO" ], f.object.i_type ) %>
+    <%= f.select :i_type, options_for_select([ "NON-COMMERCIAL", "COMMERCIAL", "1 INSTITUTION" ], f.object.i_type ) %>
   </div>
   <div class="field">
     <%= f.label :address_line1 %><br>

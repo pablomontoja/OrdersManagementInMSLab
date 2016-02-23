@@ -14,11 +14,11 @@ class OrdersController < ApplicationController
   def gotindex
     case params[:status]
       when "ready"
-        @gotorders = Order.where(status: "GOTOWY DO ODBIORU").order(created_at: :desc).paginate(:page => params[:page], :per_page => 30)    
+        @gotorders = Order.where(status: "READY").order(created_at: :desc).paginate(:page => params[:page], :per_page => 30)    
       when "finished"
-        @gotorders = Order.where(status: "ZAKOŃCZONE").order(created_at: :desc).paginate(:page => params[:page], :per_page => 30)
+        @gotorders = Order.where(status: "ENDED").order(created_at: :desc).paginate(:page => params[:page], :per_page => 30)
       when "not_ready"
-        @gotorders = Order.where(status: ["W TRAKCIE POMIARU","ZMIANA METODY"]).order(created_at: :asc).paginate(:page => params[:page], :per_page => 30)
+        @gotorders = Order.where(status: ["IN PROGRESS","CHEANGED TECHNIQUE"]).order(created_at: :asc).paginate(:page => params[:page], :per_page => 30)
       end
   end
 
@@ -49,18 +49,18 @@ class OrdersController < ApplicationController
     respond_to do |format|
       if @order.save
           @order.update_attribute(:created_by, current_user.username)
-        if order_params[:status] == "ZAKOŃCZONE"
+        if order_params[:status] == "ENDED"
         @order.update_attribute(:final_price, @order.measurements.sum(:price))
         @order.update_attribute(:order_end_date, Time.now.strftime("%Y-%m-%d"))
         end
 
         case order_params[:order_type]
-          when "WSPÓŁPRACA NAUKOWA"
-            @order.update_attribute(:order_type, "WSPÓŁPRACA NAUKOWA")
+          when "SCIENTIFIC COLLABORATION"
+            @order.update_attribute(:order_type, "SCIENTIFIC COLLABORATION")
             @order.measurements.find_each(&:save)
             @order.update_attribute(:final_price, @order.measurements.sum(:price))
-          when "PŁATNE"
-            @order.update_attribute(:order_type, "PŁATNE")
+          when "PAID"
+            @order.update_attribute(:order_type, "PAID")
             @order.measurements.find_each(&:save)
             @order.update_attribute(:final_price, @order.measurements.sum(:price))
         end
@@ -87,25 +87,25 @@ class OrdersController < ApplicationController
       if @order.update(order_params)
         @order.update_attribute(:edited_by, current_user.username)
 
-        @order.update_attribute(:status, "ZMIANA METODY") if @order.measurements.count > 1 && order_before == "W TRAKCIE POMIARU"
+        @order.update_attribute(:status, "CHEANGED TECHNIQUE") if @order.measurements.count > 1 && order_before == "IN PROGRESS"
         
-        if (order_params[:status] == "W TRAKCIE POMIARU" || order_params[:status] == "ZMIANA METODY" )  && order_before == "ZAKOŃCZONE"
+        if (order_params[:status] == "IN PROGRESS" || order_params[:status] == "CHEANGED TECHNIQUE" )  && order_before == "ENDED"
         @order.update_attribute(:order_end_date, nil) 
         @order.update_attribute(:final_price, nil)
         end
 
-        if order_params[:status] == "ZAKOŃCZONE"
+        if order_params[:status] == "ENDED"
         @order.update_attribute(:final_price, @order.measurements.sum(:price))
         @order.update_attribute(:order_end_date, Time.now.strftime("%Y-%m-%d"))
         end
 
         case order_params[:order_type]
-          when "WSPÓŁPRACA NAUKOWA"
-            @order.update_attribute(:order_type, "WSPÓŁPRACA NAUKOWA")
+          when "SCIENTIFIC COLLABORATION"
+            @order.update_attribute(:order_type, "SCIENTIFIC COLLABORATION")
             @order.measurements.find_each(&:save)
             @order.update_attribute(:final_price, @order.measurements.sum(:price))
-          when "PŁATNE"
-            @order.update_attribute(:order_type, "PŁATNE")
+          when "PAID"
+            @order.update_attribute(:order_type, "PAID")
             @order.measurements.find_each(&:save)
             @order.update_attribute(:final_price, @order.measurements.sum(:price))
         end
@@ -138,14 +138,14 @@ class OrdersController < ApplicationController
     order = Order.find(a.split("_")[1])
       case a.split("_")[0]
         when "start"
-        order.update_attribute(:status, "W TRAKCIE POMIARU")
+        order.update_attribute(:status, "IN PROGRESS")
         order.update_attribute(:sendtojob, false)
         order.update_attribute(:sendtojobdatetime, nil) unless order.sendmail == true
         order.update_attribute(:order_end_date, nil)
         order.update_attribute(:final_price, nil)
         render :json => { "new_status": order.status, "new_final_price": order.final_price, "order_end_date": order.order_end_date }
         when "done"
-        order.update_attribute(:status, "GOTOWY DO ODBIORU")
+        order.update_attribute(:status, "READY")
         order.update_attribute(:sendtojob, true)
         order.update_attribute(:sendtojobdatetime, Time.now)
         order.update_attribute(:final_price, order.measurements.sum(:price))
@@ -154,7 +154,7 @@ class OrdersController < ApplicationController
         when "end"
         order.update_attribute(:order_end_date, Time.now.strftime("%Y-%m-%d"))
         order.update_attribute(:final_price, order.measurements.sum(:price))
-        order.update_attribute(:status, "ZAKOŃCZONE")
+        order.update_attribute(:status, "ENDED")
         render :json => { "new_status": order.status , "new_final_price": order.final_price, "order_end_date": order.order_end_date }
       end  
   end

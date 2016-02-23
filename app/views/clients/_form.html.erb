@@ -30,12 +30,12 @@
 
   <div class="field">
     <%= f.label "Institution" %>*<br>
-    <%= f.select :institution_id, options_from_collection_for_select(@institutions, :id, :name, @client.institution_id ), {prompt: '---  Wybierz instytucję  ---'},  id: "client_institution_id_ps" %>
+    <%= f.select :institution_id, options_from_collection_for_select(@institutions, :id, :name, @client.institution_id ), {prompt: '---  Select Institution  ---'},  id: "client_institution_id_ps" %>
   </div>
 
   <div class="field">
     <%= f.label "Team" %>*<br>
-    <%= f.select :team_id, options_from_collection_for_select(@teams, :id, :name, @client.team_id ), {prompt: '---  Wybierz zespół/wydział danej instytucji  ---'}, id: "client_team_id_ps" %>
+    <%= f.select :team_id, options_from_collection_for_select(@teams, :id, :name, @client.team_id ), {prompt: '---  Select Team in the Institution  ---'}, id: "client_team_id_ps" %>
   </div>
 
   <div class="field">

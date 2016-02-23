@@ -17,7 +17,7 @@
 
   		<td>
 <% team.grants.where(id: @grant_ids).each do |grant| %>
-	<% grant_orders = grant.orders.where(status: "ZAKOŃCZONE", order_end_date: @report.date_from..@report.date_to).collect(&:id) %>
+	<% grant_orders = grant.orders.where(status: "ENDED", order_end_date: @report.date_from..@report.date_to).collect(&:id) %>
 	<% grant_measurements = Measurement.where(order_id: grant_orders) %>
 
   			<table class="table table-condensed table-bordered">

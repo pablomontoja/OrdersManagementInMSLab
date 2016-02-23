@@ -8,13 +8,13 @@
 	<tr class="active">
     	<td colspan="2">
     	<% case @report.i_type
-    		when "NIEKOMERCYJNA" %>
+    		when "NON-COMMERCIAL" %>
       		<%= render 'niekomercyjne' %>
-    	<% when "ICHO" %>
+    	<% when "1 INSTITUTION" %>
       		<%= render 'icho' %>
-      <% when "KOMERCYJNA" %>
+      <% when "COMMERCIAL" %>
           <%= render 'niekomercyjne' %>
-      <% when "ICHO 1 GRANT" %>
+      <% when "1 GRANT" %>
           <%= render 'ichogrant' %>                          	
       	<% end %>
     	</td>

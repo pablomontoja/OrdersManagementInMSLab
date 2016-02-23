@@ -22,7 +22,7 @@
 
   <div class="field">
     <%= f.label "Team" %>*<br>
-    <%= f.select :team_id, options_from_collection_for_select(@teams, :id, :name, @grant.team_id ), {prompt: '---  Wybierz zespół  ---'} %>
+    <%= f.select :team_id, options_from_collection_for_select(@teams, :id, :name, @grant.team_id ), {prompt: '---  Select Team  ---'} %>
   </div>
 
   <div class="field">

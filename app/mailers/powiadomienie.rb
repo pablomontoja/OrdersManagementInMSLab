@@ -5,7 +5,7 @@ class Powiadomienie < ApplicationMailer
 
   def email(client)
     @client = client
-    @zlecenia = Order.where(client_id: @client.id, status: "GOTOWY DO ODBIORU", sendtojob: true, sendmail: false || nil).where('sendtojobdatetime < ?', 10.minutes.ago)
+    @zlecenia = Order.where(client_id: @client.id, status: "READY", sendtojob: true, sendmail: false || nil).where('sendtojobdatetime < ?', 10.minutes.ago)
     mail(to: @client.email, subject: 'Laboratorium MS IChO - powiadomienie')
   end
 

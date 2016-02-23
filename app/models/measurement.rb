@@ -11,16 +11,16 @@ protected
 
 def set_price
 	case self.order.client.institution.i_type
-		when "ICHO"
+		when "1 INSTITUTION"
 		self.price = self.multiplier * self.technique.price_icho
-		when "NIEKOMERCYJNA"
+		when "NON-COMMERCIAL"
 		self.price = self.multiplier * self.technique.price_ncc
-		when "KOMERCYJNA"
+		when "COMMERCIAL"
 		self.price = self.multiplier * self.technique.price_cc
 	end
 
 	case self.order.order_type
-		when "WSPÓŁPRACA NAUKOWA"
+		when "SCIENTIFIC COLLABORATION"
 		self.price = self.multiplier * self.technique.price_science
 	end
 

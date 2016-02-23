@@ -2,7 +2,7 @@ module  SendMailJob
   @queue = :default
 
   def self.perform
-  	client_ids = Order.where(status: "GOTOWY DO ODBIORU", sendtojob: true, sendmail: false || nil).where('sendtojobdatetime < ?', 10.minutes.ago).collect(&:client_id)
+  	client_ids = Order.where(status: "READY", sendtojob: true, sendmail: false || nil).where('sendtojobdatetime < ?', 10.minutes.ago).collect(&:client_id)
   	clients = Client.where(id: client_ids)
   		
   		clients.each do |client|

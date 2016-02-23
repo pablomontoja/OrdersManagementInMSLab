@@ -34,7 +34,7 @@
       <% team.clients.each do |client| %>
 
   <tr>
-        <% client_orders = client.orders.where(status: "ZAKOŃCZONE", order_end_date: @report.date_from..@report.date_to) %>
+        <% client_orders = client.orders.where(status: "ENDED", order_end_date: @report.date_from..@report.date_to) %>
 
     <% if client_orders.any? %>
     <td>
@@ -114,7 +114,7 @@
             <% if @report.client.blank? %>
 
                       <% zesp.clients.each do |client| %>
-<% client_orders = client.orders.where(status: "ZAKOŃCZONE", order_end_date: @report.date_from..@report.date_to) %>
+<% client_orders = client.orders.where(status: "ENDED", order_end_date: @report.date_from..@report.date_to) %>
 
   <tr>
     <% if client_orders.any? %>
@@ -194,7 +194,7 @@
 
 
       <% client = Client.find(@report.client) %>
-<% client_orders = client.orders.where(status: "ZAKOŃCZONE", order_end_date: @report.date_from..@report.date_to) %>
+<% client_orders = client.orders.where(status: "ENDED", order_end_date: @report.date_from..@report.date_to) %>
   <tr>
     <% if client_orders.any? %>
     <td>
@@ -274,7 +274,7 @@
 <% col = 0  %>
 <% mcol = client.orders.map{|n| n.measurements.count}.max  %>  
       </tr>
-    <% client.orders.where(grant_id: grant.id, status: "ZAKOŃCZONE", order_end_date: @report.date_from..@report.date_to).each do |order| %>
+    <% client.orders.where(grant_id: grant.id, status: "ENDED", order_end_date: @report.date_from..@report.date_to).each do |order| %>
       <tr>
         
         <td>

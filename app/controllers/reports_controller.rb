@@ -11,18 +11,18 @@ class ReportsController < ApplicationController
   # GET /reports/1.json
   def show
   # dla icho 1 grant
-    @orders = Order.where(status: "ZAKOŃCZONE", order_end_date: @report.date_from..@report.date_to, grant_id: @report.grant)  
+    @orders = Order.where(status: "ENDED", order_end_date: @report.date_from..@report.date_to, grant_id: @report.grant)  
     @order_ids = @orders.collect(&:id)
     @clients = Client.where(id: @orders.collect(&:client_id))
   # wszyscy
-    @grant_ids = Order.where(status: "ZAKOŃCZONE", order_end_date: @report.date_from..@report.date_to).collect(&:grant_id)
+    @grant_ids = Order.where(status: "ENDED", order_end_date: @report.date_from..@report.date_to).collect(&:grant_id)
     @team_ids = Grant.where(id: @grant_ids).collect(&:team_id)
   # dla komercyjnych i niekomercyjnych
   case @report.i_type 
-  when "NIEKOMERCYJNA"    
-    @niekomercyjni = Institution.where(i_type: "NIEKOMERCYJNA")
-  when "KOMERCYJNA"
-    @niekomercyjni = Institution.where(i_type: "KOMERCYJNA")
+  when "NON-COMMERCIAL"    
+    @niekomercyjni = Institution.where(i_type: "NON-COMMERCIAL")
+  when "COMMERCIAL"
+    @niekomercyjni = Institution.where(i_type: "COMMERCIAL")
   end
   # dla icho
     @institution = Institution.find(@report.institution) unless @report.institution.blank?
@@ -32,18 +32,18 @@ class ReportsController < ApplicationController
 
   def showpdf
   # dla icho 1 grant
-    @orders = Order.where(status: "ZAKOŃCZONE", order_end_date: @report.date_from..@report.date_to, grant_id: @report.grant)  
+    @orders = Order.where(status: "ENDED", order_end_date: @report.date_from..@report.date_to, grant_id: @report.grant)  
     @order_ids = @orders.collect(&:id)
     @clients = Client.where(id: @orders.collect(&:client_id))
   # wszyscy
-    @grant_ids = Order.where(status: "ZAKOŃCZONE", order_end_date: @report.date_from..@report.date_to).collect(&:grant_id)
+    @grant_ids = Order.where(status: "ENDED", order_end_date: @report.date_from..@report.date_to).collect(&:grant_id)
     @team_ids = Grant.where(id: @grant_ids).collect(&:team_id)
   # dla komercyjnych niekomercyjnych    
   case @report.i_type 
-  when "NIEKOMERCYJNA"    
-    @niekomercyjni = Institution.where(i_type: "NIEKOMERCYJNA")
-  when "KOMERCYJNA"
-    @niekomercyjni = Institution.where(i_type: "KOMERCYJNA")
+  when "NON-COMMERCIAL"    
+    @niekomercyjni = Institution.where(i_type: "NON-COMMERCIAL")
+  when "COMMERCIAL"
+    @niekomercyjni = Institution.where(i_type: "COMMERCIAL")
   end   
   # dla icho
     @institution = Institution.find(@report.institution) unless @report.institution.blank?
@@ -88,18 +88,18 @@ class ReportsController < ApplicationController
     @report = Report.new(report_params)
 
      # dla icho 1 grant
-    @orders = Order.where(status: "ZAKOŃCZONE", order_end_date: @report.date_from..@report.date_to, grant_id: @report.grant)  
+    @orders = Order.where(status: "ENDED", order_end_date: @report.date_from..@report.date_to, grant_id: @report.grant)  
     @order_ids = @orders.collect(&:id)
     @clients = Client.where(id: @orders.collect(&:client_id))
   # wszyscy
-    @grant_ids = Order.where(status: "ZAKOŃCZONE", order_end_date: @report.date_from..@report.date_to).collect(&:grant_id)
+    @grant_ids = Order.where(status: "ENDED", order_end_date: @report.date_from..@report.date_to).collect(&:grant_id)
     @team_ids = Grant.where(id: @grant_ids).collect(&:team_id)
   # dla komercyjnych i niekomercyjnych
   case @report.i_type 
-  when "NIEKOMERCYJNA"    
-    @niekomercyjni = Institution.where(i_type: "NIEKOMERCYJNA")
-  when "KOMERCYJNA"
-    @niekomercyjni = Institution.where(i_type: "KOMERCYJNA")
+  when "NON-COMMERCIAL"    
+    @niekomercyjni = Institution.where(i_type: "NON-COMMERCIAL")
+  when "COMMERCIAL"
+    @niekomercyjni = Institution.where(i_type: "COMMERCIAL")
   end
   # dla icho
     @institution = Institution.find(@report.institution) unless @report.institution.blank?
@@ -134,18 +134,18 @@ class ReportsController < ApplicationController
   # PATCH/PUT /reports/1.json
   def update
   # dla icho 1 grant
-    @orders = Order.where(status: "ZAKOŃCZONE", order_end_date: @report.date_from..@report.date_to, grant_id: @report.grant)  
+    @orders = Order.where(status: "ENDED", order_end_date: @report.date_from..@report.date_to, grant_id: @report.grant)  
     @order_ids = @orders.collect(&:id)
     @clients = Client.where(id: @orders.collect(&:client_id))
   # wszyscy
-    @grant_ids = Order.where(status: "ZAKOŃCZONE", order_end_date: @report.date_from..@report.date_to).collect(&:grant_id)
+    @grant_ids = Order.where(status: "ENDED", order_end_date: @report.date_from..@report.date_to).collect(&:grant_id)
     @team_ids = Grant.where(id: @grant_ids).collect(&:team_id)
   # dla komercyjnych i niekomercyjnych
   case @report.i_type 
-  when "NIEKOMERCYJNA"    
-    @niekomercyjni = Institution.where(i_type: "NIEKOMERCYJNA")
-  when "KOMERCYJNA"
-    @niekomercyjni = Institution.where(i_type: "KOMERCYJNA")
+  when "NON-COMMERCIAL"    
+    @niekomercyjni = Institution.where(i_type: "NON-COMMERCIAL")
+  when "COMMERCIAL"
+    @niekomercyjni = Institution.where(i_type: "COMMERCIAL")
   end
   # dla icho
     @institution = Institution.find(@report.institution) unless @report.institution.blank?

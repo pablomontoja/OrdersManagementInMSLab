@@ -42,18 +42,17 @@
   </div>
   <div class="field">
     <%= f.label :status %>*<br>
-     <%= f.select :status, options_for_select([ "W TRAKCIE POMIARU", "ZMIANA METODY", "GOTOWY DO ODBIORU", "ZAKOŃCZONE" ], f.object.status )  %>
+     <%= f.select :status, options_for_select([ "IN PROGRESS", "CHEANGED TECHNIQUE", "READY", "ENDED" ], f.object.status )  %>
   </div>
 
   <div class="field">
     <%= f.label :order_type %>*<br>
-    <%= f.select :order_type, options_for_select([ "PŁATNE", "WSPÓŁPRACA NAUKOWA" ], f.object.order_type ) %>
+    <%= f.select :order_type, options_for_select([ "PAID", "SCIENTIFIC COLLABORATION" ], f.object.order_type ) %>
   </div>
 
   <div class="field">
     <%= f.label "Grant" %>*<br>
-    <% # byebug %>
-    <%= f.select :grant_id, options_from_collection_for_select(@grants, :id, :short_name, @order.grant_id ), {prompt: '---  Wybierz grant  ---'},  id: "order_grant_id", :class => "required" %>
+    <%= f.select :grant_id, options_from_collection_for_select(@grants, :id, :short_name, @order.grant_id ), {prompt: '---  Select Grant  ---'},  id: "order_grant_id", :class => "required" %>
   </div>
 
   <div class="field">
@@ -78,7 +77,7 @@
     <h4>Measurement <%= i %> *</h4>
     <div class="field">
       <%= m.label :technique_id %><br>
-      <%= m.select :technique_id, options_from_collection_for_select(@techniques, :id, :short_name, m.object.technique_id ), {prompt: '---  Wybierz technikę  ---'}, :class => "required" %>
+      <%= m.select :technique_id, options_from_collection_for_select(@techniques, :id, :short_name, m.object.technique_id ), {prompt: '---  Select Technique  ---'}, :class => "required" %>
 
     </div>
 

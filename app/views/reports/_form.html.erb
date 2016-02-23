@@ -25,21 +25,21 @@
   </div>
 
   <div class="field">
-    <%= f.label "Type of institution" %>*<br>
-    <%= f.select :i_type, options_for_select([ "NIEKOMERCYJNA", "KOMERCYJNA", "ICHO", "ICHO 1 GRANT" ], f.object.i_type ), {prompt: '---  Wybierz typ instytucji  ---'},  id: "i_type" %>    
+    <%= f.label "Type of Report" %>*<br>
+    <%= f.select :i_type, options_for_select([ "NON-COMMERCIAL", "COMMERCIAL", "1 INSTITUTION", "1 GRANT" ], f.object.i_type ), {prompt: '---  Select Type of Report  ---'},  id: "i_type" %>    
   </div>
 
   <div class="field">
     <%= f.label :institution %>*<br>
-    <%= f.select :institution, options_from_collection_for_select(@institutions, :id, :name, f.object.institution), {prompt: '---  Wszystkie instytucję  ---'},  id: "client_institution_id_ps" %>    
+    <%= f.select :institution, options_from_collection_for_select(@institutions, :id, :name, f.object.institution), {prompt: '---  Select Institution  ---'},  id: "client_institution_id_ps" %>    
   </div>
   <div class="field">
     <%= f.label :team %>*<br>
-    <%= f.select :team, options_from_collection_for_select(@teams, :id, :name, f.object.team), {prompt: '---  Wybierz zespół/wydział danej instytucji  ---'}, id: "client_team_id_ps" %>
+    <%= f.select :team, options_from_collection_for_select(@teams, :id, :name, f.object.team), {prompt: '---  Select Team of Institution  ---'}, id: "client_team_id_ps" %>
   </div>
   <div class="field">
     <%= f.label :grant %>*<br>
-    <%= f.select :grant, options_from_collection_for_select(@grants, :id, :name, f.object.grant), {prompt: '---  Wybierz grant  ---'}, id: "grant_id" %>
+    <%= f.select :grant, options_from_collection_for_select(@grants, :id, :name, f.object.grant), {prompt: '---  Select Grant  ---'}, id: "grant_id" %>
   </div>
   <div class="actions">
     <%= f.submit class: 'btn btn-success' %>

@@ -33,9 +33,9 @@
 
 <%= link_to 'New Order', new_order_path, class: "btn btn-default" %>
 <%= link_to 'All Orders', orders_path, class: "btn btn-default" %>
-<%= link_to 'Only "W TRAKCIE POMIARU"', '/orders/gotindex/not_ready', class: "btn btn-default" %>
+<%= link_to 'Only "IN PROGRESS"', '/orders/gotindex/not_ready', class: "btn btn-default" %>
 <%= link_to 'Only "GOTOWE DO ODBIORU"', '/orders/gotindex/ready', class: "btn btn-default" %>
-<%= link_to 'Only "ZAKOŃCZONE"', '/orders/gotindex/finished', class: "btn btn-default" %>
+<%= link_to 'Only "ENDED"', '/orders/gotindex/finished', class: "btn btn-default" %>
 
 <table class="table table-striped">
   <thead>
@@ -67,26 +67,26 @@
         <td id="status_<%= order.id %>"><%= order.status %></td>
         <td id="glyph_<%= order.id %>"><% if order.sendmail == true %><span class="glyphicon glyphicon-envelope"><% end %>
               <% case order.status
-              when "W TRAKCIE POMIARU" %>
+              when "IN PROGRESS" %>
                 <a class="done" id="done_<%= order.id %>" title="Zmień na 'Gotowy do odbioru'" class="btn btn-xs btn-default" role="button">
                       <span class="glyphicon glyphicon-ok"></span></a>
                 <a class="start" id="start_<%= order.id %>" title="Zmień na 'W trakcie pomiaru'" class="btn btn-xs btn-default" role="button">
                       <span class="glyphicon glyphicon-step-backward" style="display: none;"></span></a>
-                <a class="end" id="end_<%= order.id %>" title="Zmień na 'ZAKOŃCZONE'" class="btn btn-xs btn-default" role="button">
+                <a class="end" id="end_<%= order.id %>" title="Zmień na 'ENDED'" class="btn btn-xs btn-default" role="button">
                       <span class="glyphicon glyphicon-lock"></span></a> 
-              <% when "GOTOWY DO ODBIORU" %>
+              <% when "READY" %>
                 <a class="done" id="done_<%= order.id %>" title="Zmień na 'Gotowy do odbioru'" class="btn btn-xs btn-default" role="button">
                       <span class="glyphicon glyphicon-ok" style="display: none;"></span></a>              
                 <a class="start" id="start_<%= order.id %>" title="Zmień na 'W trakcie pomiaru'" class="btn btn-xs btn-default" role="button">
                       <span class="glyphicon glyphicon-step-backward"></span></a> 
-                <a class="end" id="end_<%= order.id %>" title="Zmień na 'ZAKOŃCZONE'" class="btn btn-xs btn-default" role="button">
+                <a class="end" id="end_<%= order.id %>" title="Zmień na 'ENDED'" class="btn btn-xs btn-default" role="button">
                       <span class="glyphicon glyphicon-lock"></span></a>
-              <% when "ZMIANA METODY" %>
+              <% when "CHEANGED TECHNIQUE" %>
                 <a class="done" id="done_<%= order.id %>" title="Zmień na 'Gotowy do odbioru'" class="btn btn-xs btn-default" role="button">
                       <span class="glyphicon glyphicon-ok" ></span></a>              
                 <a class="start" id="start_<%= order.id %>" title="Zmień na 'W trakcie pomiaru'" class="btn btn-xs btn-default" role="button">
                       <span class="glyphicon glyphicon-step-backward" style="display: none;"></span></a> 
-                <a class="end" id="end_<%= order.id %>" title="Zmień na 'ZAKOŃCZONE'" class="btn btn-xs btn-default" role="button">
+                <a class="end" id="end_<%= order.id %>" title="Zmień na 'ENDED'" class="btn btn-xs btn-default" role="button">
                       <span class="glyphicon glyphicon-lock"></span></a>  
             <% end %>
         </td>
