@@ -16,7 +16,7 @@ sudo apt-get install redis-server
 ```
 Installation of Ruby on Rails has been omitted. You can do this, for example, using rvm.
 
-#### App preparation
+#### App installation
 ```
 sudo apt-get install nodejs
 
