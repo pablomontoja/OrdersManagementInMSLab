@@ -1,19 +1,20 @@
 ----
 # Orders Management In Mass Spectrometry Laboratory
-----
+
 This is s web-based application written in Ruby on Rails. It can be used to store information, for example, about orders (analysis) in mass spectrometry laboratory.
 
-# REQUIREMENTS
+## REQUIREMENTS
 
 - Redis Server
+- Ruby on Rails
 
-# INSTALLATION (example based on Ubuntu Server 15.10)
+## INSTALLATION (example based on Ubuntu Server 15.10)
 
-    /// redis installation ///
+#### Redis installation
 ```
 sudo apt-get install redis-server
 ```
-    /// Installation of Ruby on Rails has been omitted. You can do this, for example, using rvm. ///
+#### Installation of Ruby on Rails has been omitted. You can do this, for example, using rvm.
 ```
 sudo apt-get install nodejs
 
@@ -30,7 +31,7 @@ rake db:migrate
 rails server
 ```
 
- /// the easiest method - use VirtualBox image ///
+ #### the easiest method - use VirtualBox image
 
 I prepared Ubuntu Server image (.vdi container) that can be used to run my app. You need to configure VirtualBox Port Forwarding (add port forwarding rule with Host Port=3000 and Guest Port=3000).
 
