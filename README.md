@@ -1,20 +1,20 @@
 ----
-== Orders Management In Mass Spectrometry Laboratory
+# Orders Management In Mass Spectrometry Laboratory
 ----
 This is s web-based application written in Ruby on Rails. It can be used to store information, for example, about orders (analysis) in mass spectrometry laboratory.
 
-== REQUIREMENTS
+# REQUIREMENTS
 
 - Redis Server
 
-== INSTALLATION (example based on Ubuntu Server 15.10)
+# INSTALLATION (example based on Ubuntu Server 15.10)
 
     /// redis installation ///
-
+```
 sudo apt-get install redis-server
-
+```
     /// Installation of Ruby on Rails has been omitted. You can do this, for example, using rvm. ///
-
+```
 sudo apt-get install nodejs
 
 git clone https://github.com/pablomontoja/OrdersManagementInMSLab.git
@@ -28,7 +28,7 @@ rake db:create
 rake db:migrate
 
 rails server
-
+```
 
  /// the easiest method - use VirtualBox image ///
 
@@ -46,7 +46,7 @@ user password: admin
 
 
 After login as admin go to /home/admin/rails and clone the repo:
-
+```
 git clone https://github.com/pablomontoja/OrdersManagementInMSLab.git
 
 rails server -b 10.0.2.15
@@ -54,4 +54,4 @@ rails server -b 10.0.2.15
 Now in your host system in browser go to:
 
 127.0.0.1:3000
-
+```
